@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from politicians_evaluation import print_metrics_cluster
 
 G = nx.read_gexf('nois_projected_graph_overlap_attributes.gexf', relabel=True)
-
+#mia mpoyrda pali
 # the resolution parameter influences the number of communities
 def experiment(resolution):
     partition = community.best_partition(G, resolution=resolution)
@@ -17,7 +17,7 @@ def experiment(resolution):
     print('Resolution parameter: ', resolution)
     print('num of partitions: ', size)
     return (partition)
-
+#lllalalal
 
 # Δοκιμάστε τιμές για το resolution
 resolution = 0.91
