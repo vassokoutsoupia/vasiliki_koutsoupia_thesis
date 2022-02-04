@@ -13,6 +13,13 @@ def print_metrics_cluster(method_name, ground_truth_labels, labels):
     rand_score_method = rand_score(ground_truth_labels, labels)
     hom_score_method = homogeneity_score(ground_truth_labels, labels)
     com_score_method = completeness_score(ground_truth_labels, labels)
+    metrics = {'mi_score': mi_score_method,
+               'nmi_score': nmi_score_method,
+               'ami_score': ami_score_method,
+               'rand_score': rand_score_method,
+               'how_score': hom_score_method,
+               'com_score': com_score_method}
+
     print('---------')
     print(f'Metrics for clustering with {method_name}')
     print(f'Mutual Information (MI) score ({method_name}): {mi_score_method}')
@@ -21,6 +28,7 @@ def print_metrics_cluster(method_name, ground_truth_labels, labels):
     print(f'Rand score ({method_name}): {rand_score_method}')
     print(f'Homogeneity score ({method_name}): {hom_score_method}')
     print(f'Completeness score ({method_name}): {com_score_method}')
+    return metrics
 
 
 def clusters_to_labels(clusters):

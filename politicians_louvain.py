@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from politicians_evaluation import print_metrics_cluster
 
 G = nx.read_gexf('nois_projected_graph_overlap_attributes.gexf', relabel=True)
-#mia mpoyrda pali
+
 # the resolution parameter influences the number of communities
 def experiment(resolution):
     partition = community.best_partition(G, resolution=resolution)
@@ -17,7 +17,6 @@ def experiment(resolution):
     print('Resolution parameter: ', resolution)
     print('num of partitions: ', size)
     return (partition)
-#lllalalal
 
 # Δοκιμάστε τιμές για το resolution
 resolution = 0.91
@@ -45,15 +44,15 @@ for com in set(partition.values()):
         node = G.nodes[name]
         ground_truth_labels_dict[name] = parties_id[node['party']] #username : party id
         if 'party' in node.keys():
-            print(count-1, ',', name, ',', node['party'])
+            print(count, ',', name, ',', node['party'])
         else:
-            print(count-1, ',', name, ',', 'NO PARTY')
+            print(count, ',', name, ',', 'NO PARTY')
             print(f'Warning: Node {node} has no label')
 
         if 'noitype' in node.keys():
-            print(count-1, ", ", name, ", ", node['noitype'])
+            print(count, ", ", name, ", ", node['noitype'])
         else:
-            print(count-1, ',', name, ',', 'NO NOITYPE')
+            print(count, ',', name, ',', 'NO NOITYPE')
     count = count + 1
 # Prepare label lists
 ground_truth_labels = []
