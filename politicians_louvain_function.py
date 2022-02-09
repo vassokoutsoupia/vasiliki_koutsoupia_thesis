@@ -2,6 +2,7 @@
 import community
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 # read the graph and use the label attributes (party, noitype)
@@ -61,13 +62,19 @@ for node in G.nodes:
 # Ground Truth για το clustering: Το πραγματικό κόμμα κάθε βουλευτή
 
 # Evaluation fo the quality of the clustering
+# function returns a dict with all the metrics for a specific resolution
 def specific_res(G, resolution):
     metrics = print_metrics_cluster('f{resolution}', ground_truth_labels, louvain_labels)
     return metrics
 
-metrics_specific_res = specific_res(G,0.91)
+metrics_specific_res = specific_res(G, 0.91)
 print(metrics_specific_res)
 
+mutual_info = metrics_specific_res['mi_score']
+print(mutual_info)
+
+
+# return the value of the mutual info score
 
 color_palette = ['blue', 'red', 'green', 'orange', 'cyan', 'grey']
 color_map = []

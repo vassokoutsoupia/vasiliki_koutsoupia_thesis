@@ -31,6 +31,7 @@ def print_metrics_cluster(method_name, ground_truth_labels, labels):
     return metrics
 
 
+
 def clusters_to_labels(clusters):
     num_of_clusters = len(clusters)
     num_of_nodes = sum([len(c) for c in clusters])
