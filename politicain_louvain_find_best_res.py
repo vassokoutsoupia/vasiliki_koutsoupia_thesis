@@ -62,6 +62,7 @@ def louvainCreator(resolution):
     for node in G.nodes:
         ground_truth_labels.append(ground_truth_labels_dict[node])
 
+    # return a dict with 2 lists, ground truth labels and louvain labels
     return {
         "groundTruths": ground_truth_labels,
         "louvainLabels": louvain_labels
@@ -69,13 +70,11 @@ def louvainCreator(resolution):
 
 
 # Ground Truth για το clustering: Το πραγματικό κόμμα κάθε βουλευτή
-
 # Evaluation fo the quality of the clustering
 # function returns a dict with all the metrics
 def specific_res(G,ground_truth_labels,louvain_labels):
     metrics = print_metrics_cluster('f{resolution}', ground_truth_labels, louvain_labels)
     return metrics
-
 
 # TEST
 
@@ -92,22 +91,23 @@ best_res = None
 best_metric = None
 for res in float_res_array:
     parametersForCurrentRes = louvainCreator(res)
-    metrics_specific_res = specific_res(G,parametersForCurrentRes["groundTruths"],parametersForCurrentRes["louvainLabels"])
+    metrics_specific_res = specific_res(G, parametersForCurrentRes["groundTruths"], parametersForCurrentRes["louvainLabels"])
     # print(metrics_specific_res)
 
-    mutual_info = metrics_specific_res['mi_score']
+    normalized_mutual_info = metrics_specific_res['nmi_score']
     if best_res == None:
         best_res = res
-        best_metric = mutual_info
-    elif mutual_info < best_metric:
-        best_metric = mutual_info
-    elif mutual_info > best_metric:
-        break
+        best_metric = normalized_mutual_info
+    elif normalized_mutual_info > best_metric:
+        best_res = res
+        best_metric = normalized_mutual_info
+
+    #elif normalized_mutual_info > best_metric:
+    #   break
     # print("===============================Metrics for ", res," ==============================")
-print("Best res is %s and best metric is %s" %(res,best_metric))
+print("Best res is %s and best metric is %s" % (best_res, best_metric))
 
 # print(sorted_res_list)
-
 
 # # return the value of the mutual info score
 #
