@@ -80,32 +80,45 @@ def specific_res(G,ground_truth_labels,louvain_labels):
 
 low = 0.5
 high = 2.0
-step = 0.15  # k=10
+k = 10
+step = (high-low)/k
+i = 1
 
 float_res_array = np.arange(low, high, step)
 float_res_list = list(float_res_array)
-
 sorted_res_list = sorted(float_res_list)
 
-best_res = None
-best_metric = None
-for res in float_res_array:
-    parametersForCurrentRes = louvainCreator(res)
-    metrics_specific_res = specific_res(G, parametersForCurrentRes["groundTruths"], parametersForCurrentRes["louvainLabels"])
-    # print(metrics_specific_res)
 
-    normalized_mutual_info = metrics_specific_res['nmi_score']
-    if best_res == None:
-        best_res = res
-        best_metric = normalized_mutual_info
-    elif normalized_mutual_info > best_metric:
-        best_res = res
-        best_metric = normalized_mutual_info
+while i <= 4:
 
-    #elif normalized_mutual_info > best_metric:
-    #   break
-    # print("===============================Metrics for ", res," ==============================")
-print("Best res is %s and best metric is %s" % (best_res, best_metric))
+    best_res = None
+    best_metric = None
+    for res in float_res_array:
+        parametersForCurrentRes = louvainCreator(res)
+        metrics_specific_res = specific_res(G, parametersForCurrentRes["groundTruths"], parametersForCurrentRes["louvainLabels"])
+        # print(metrics_specific_res)
+
+        normalized_mutual_info = metrics_specific_res['nmi_score']
+        if best_res == None:
+            best_res = res
+            best_metric = normalized_mutual_info
+        elif normalized_mutual_info > best_metric:
+            best_res = res
+            best_metric = normalized_mutual_info
+
+        #elif normalized_mutual_info > best_metric:
+        #   break
+        # print("===============================Metrics for ", res," ==============================")
+    print("Best resolution is %s and best metric is %s" % (best_res, best_metric))
+
+    low = best_res - step
+    high = best_res + step
+    step = (high - low) / k
+
+    float_res_array = np.arange(low, high, step)
+    float_res_list = list(float_res_array)
+    sorted_res_list = list(float_res_array)
+    i = i + 1
 
 # print(sorted_res_list)
 
