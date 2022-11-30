@@ -72,7 +72,7 @@ def louvainCreator(resolution):
 # Ground Truth για το clustering: Το πραγματικό κόμμα κάθε βουλευτή
 # Evaluation fo the quality of the clustering
 # function returns a dict with all the metrics
-def specific_res(G,ground_truth_labels,louvain_labels):
+def specific_res(G,ground_truth_labels, louvain_labels):
     metrics = print_metrics_cluster('f{resolution}', ground_truth_labels, louvain_labels)
     return metrics
 
@@ -89,7 +89,7 @@ float_res_list = list(float_res_array)
 sorted_res_list = sorted(float_res_list)
 
 
-while i <= 4:
+while i <= 5:
 
     best_res = None
     best_metric = None
@@ -117,7 +117,7 @@ while i <= 4:
 
     float_res_array = np.arange(low, high, step)
     float_res_list = list(float_res_array)
-    sorted_res_list = list(float_res_array)
+    sorted_res_list = sorted(float_res_array)
     i = i + 1
 
 # print(sorted_res_list)

@@ -54,10 +54,6 @@ for node in G.nodes:
 # Evaluation fo the quality of the clustering
 print_metrics_cluster('f{resolution}', ground_truth_labels, louvain_labels)
 
-# labeldict = {}
-# labeldict["Node1"] = "shopkeeper"
-# labeldict["Node2"] = "angry man with parrot"
-
 # parties: nd, syriza, kinal, elli, mera
 color_palette = ['blue', 'red', 'green', 'orange', 'cyan', 'grey']
 color_map = []
