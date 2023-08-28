@@ -18,6 +18,7 @@ def experiment(resolution):
     print('num of partitions: ', size)
     return (partition)
 
+
 # Δοκιμάστε τιμές για το resolution
 resolution = 0.91
 partition = experiment(resolution)
@@ -44,15 +45,15 @@ for com in set(partition.values()):
         node = G.nodes[name]
         ground_truth_labels_dict[name] = parties_id[node['party']] #username : party id
         if 'party' in node.keys():
-            print(count, ',', name, ',', node['party'])
+            print(count-1, ',', name, ',', node['party'])
         else:
-            print(count, ',', name, ',', 'NO PARTY')
+            print(count-1, ',', name, ',', 'NO PARTY')
             print(f'Warning: Node {node} has no label')
 
         if 'noitype' in node.keys():
-            print(count, ", ", name, ", ", node['noitype'])
+            print(count-1, ", ", name, ", ", node['noitype'])
         else:
-            print(count, ',', name, ',', 'NO NOITYPE')
+            print(count-1, ',', name, ',', 'NO NOITYPE')
     count = count + 1
 # Prepare label lists
 ground_truth_labels = []
@@ -77,7 +78,7 @@ plt.figure(1, figsize=(12, 12))
 # node_color: List with the color of each graph node
 # labels: Dictionary with the label of each node
 nx.draw(G, labels=ground_truth_labels_dict, with_labels=True, node_color=color_map, width=0.1)
-plt.savefig("Graph_Louvain.png")
+plt.savefig("Graph_Louvain_2.png")
 
 # nx.draw(G, with_labels=True)
 plt.show()
