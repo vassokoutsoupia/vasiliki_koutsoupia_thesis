@@ -2,9 +2,13 @@ import community
 import operator
 import networkx as nx
 from networkx.algorithms import bipartite
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import pandas as pd
 from cdlib import algorithms
+import itertools
 from pathlib import Path
+from networkx.algorithms.community.centrality import girvan_newman
+
 
 folder = '.'
 
@@ -59,4 +63,10 @@ G = nx.read_edgelist(
 print(nx.is_directed(G), nx.is_weighted(G, edge=None, weight='weight')) #FALSE ,FALSE if G has not weighted edges
 print(nx.is_directed(H), nx.is_weighted(H, edge=None, weight='weight')) #FALSE ,TRUE if H has weighted edges
 
-#coms = algorithms.girvan_newman(H)
+
+com = nx.algorithms.community.girvan_newman(H)
+communities = tuple(sorted(c) for c in next(com))
+
+for community in communities:
+    print(community)
+
