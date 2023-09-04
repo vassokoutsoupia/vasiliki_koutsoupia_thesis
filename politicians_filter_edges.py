@@ -27,6 +27,6 @@ with open(input_file_name, 'r') as input_file:    # anoigw to file me ta ids kai
         noi = tokens[1].strip()                   # kai o noi= to mme_name dld token[1]
 
         if noi in noi_set:
-            output_file.write(line)               # an
+            output_file.write(line)
 input_file.close()
 output_file.close()
