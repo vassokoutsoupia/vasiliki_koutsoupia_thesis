@@ -2,7 +2,7 @@ import community
 import operator
 import networkx as nx
 from networkx.algorithms import bipartite
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from cdlib import algorithms
 from pathlib import Path
 
