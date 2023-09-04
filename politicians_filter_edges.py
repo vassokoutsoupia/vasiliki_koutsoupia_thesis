@@ -1,6 +1,6 @@
 folder = '.'
-input_file_name = 'C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\TEST_etoimo dataset_clustering\\2021-11-14-twitter\\2021-11-14-twitter\\user-hub.edges'
-output_file_name = 'C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\TEST_etoimo dataset_clustering\\2021-11-14-twitter\\2021-11-14-twitter\\user-mp.edges'
+input_file_name = 'C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\twitter_dataset2021\\2021-11-14-twitter\\2021-11-14-twitter\\user-hub.edges'
+output_file_name = 'C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\twitter_dataset2021\\2021-11-14-twitter\\2021-11-14-twitter\\user-mp.edges'
 
 # ground truth
 # load parties
@@ -15,7 +15,8 @@ with open(folder + '\\' + 'mp-of-all-parties.txt', 'r') as f:   # mp,party_name,
 
 f.close()
 
-
+print(noi_set)
+print(parties_id)
 
 output_file = open(output_file_name, "w")         # 'W' = write
 
