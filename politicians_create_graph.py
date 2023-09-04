@@ -104,3 +104,7 @@ plt.figure(figsize=(12,11))
 nx.draw(H)
 plt.savefig("Graph_projected.png")
 plt.show()
+
+#save in gexf file the graph H after the changings
+output_file_name = "projected_H.gexf"
+nx.write_gexf(H, output_file_name)
