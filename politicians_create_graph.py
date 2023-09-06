@@ -7,26 +7,27 @@ from pathlib import Path
 
 folder = '.'
 
-projected_graph_file = Path("nois_projected_graph_overlap_attributes.gexf")
-
-#create G
+# create G
 G = nx.read_edgelist("C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\twitter_dataset2021\\2021-11-14-twitter\\2021-11-14-twitter\\user-mp.edges", delimiter=',')
+
+
+projected_graph_file = Path("nois_projected_graph_overlap_attributes.gexf")
 
 if not projected_graph_file.is_file():
  
     G = nx.read_edgelist("C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\twitter_dataset2021\\2021-11-14-twitter\\2021-11-14-twitter\\user-mp.edges", delimiter=',')
     print(f'Number of edges: {nx.number_of_edges(G)}')
 
-    #check if graph is bipartite
+    # check if graph is bipartite
     print(f'Graph is bipartite: {bipartite.is_bipartite(G)}')
 
-    #obtain node set
+    # obtain node set
     users, noi = bipartite.sets(G)
 
     print('users:', len(users))
     print('noi:', len(noi))
 
-    #projected graph
+    # projected graph
     H = bipartite.overlap_weighted_projected_graph(G, noi, jaccard=False)
 
     # read auxiliary information: party of each node
@@ -45,16 +46,16 @@ if not projected_graph_file.is_file():
     nx.set_node_attributes(H, party, 'party')
     nx.set_node_attributes(H, node_type, 'noitype')
 
-    #write projected graph
+    # write projected graph
     nx.write_gexf(H, projected_graph_file)
 else:
-    #create H
+    # create H
     H = nx.read_gexf(projected_graph_file)
 
 print(H.number_of_edges())
 print(H.number_of_nodes())
 
-#lets find who mp exists in H
+# lets find who mp exists in H
 lista = []
 lista = H.nodes(data=('party'))
 print(lista)
@@ -77,7 +78,7 @@ file_name3 = "list_mera.txt"
 file_name4 = "list_kinal.txt"
 file_name5 = "list_elli.txt"
 
-#open files and write every line of each lists
+# open files and write every line of each lists
 with open(file_name, "w") as file:
     for item in list_syriza:
         file.write(item + "\n")
@@ -99,12 +100,12 @@ with open(file_name5, "w") as file:
         file.write(item + "\n")
 
 
-#draw the projection graph
+# draw the projection graph H
 plt.figure(figsize=(12,11))
 nx.draw(H)
 plt.savefig("Graph_projected.png")
 plt.show()
 
-#save in gexf file the graph H after the changings
+# save in gexf file the graph H after the changings
 output_file_name = "projected_H.gexf"
 nx.write_gexf(H, output_file_name)
