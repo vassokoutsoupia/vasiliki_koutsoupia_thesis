@@ -1,45 +1,58 @@
-import community
-import operator
+# community detection using Girvan-Newman algorithm
+
 import networkx as nx
 import matplotlib.pyplot as plt
-from cdlib import algorithms
-import itertools
 from pathlib import Path
-from networkx.algorithms.community.centrality import girvan_newman
+import time
+import matplotlib.cm as cm
+import networkx.algorithms.community as nx_comm
+
+# measure the execution time
+start_time = time.time()
 
 # open and read projected graph H
 projected_graph_file = Path("C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\twitter_dataset2021\\vasiliki_koutsoupia_thesis\\projected_H.gexf")
 H = nx.read_gexf(projected_graph_file)
 
-G = nx.read_edgelist(
-    "C:\\Users\\Vaso Koutsoupia\\Documents\\DOCS VASSO\\Algorithms\\twitter data set\\twitter_dataset2021\\2021-11-14-twitter\\2021-11-14-twitter\\user-mp.edges", delimiter=',')
 
-# print(nx.is_directed(G), nx.is_weighted(G, edge=None, weight='weight')) #FALSE ,FALSE if G has not weighted edges
-# print(nx.is_directed(H), nx.is_weighted(H, edge=None, weight='weight')) #FALSE ,TRUE if H has weighted edges
+def print_metrics_community(method_name, H, communities):
+    modularity_method = nx_comm.modularity(H, communities)
+    coverage_method = nx_comm.coverage(H, communities)
+    performance_method = nx_comm.performance(H, communities)
+    print('---------')
+    print(f'Metrics for communities with {method_name}')
+    print(f'Modularity ({method_name}): {modularity_method}')
+    print(f'Coverage ({method_name}: {coverage_method}')
+    print(f'Performance ({method_name}: {performance_method}')
 
-# Girvan-Newman Algorithm
-comp = girvan_newman(H)
 
-# make the communities into lists
-node_groups = [list(c) for c in next(comp)]
+print('Girvan Newman')
 
-print("Communities:", node_groups)
+# Girvan Newman community detection
+num_clusters_to_find = 4
+all_com = []
+for i in range(num_clusters_to_find):
+    comp = nx.algorithms.community.centrality.girvan_newman(H)
+    tup = tuple(sorted(c) for c in next(comp))
+    all_com.extend(tup)
 
-# Create the color map
-color_map = []
-for node in H:
-    if node in node_groups[0]:
-        color_map.append("blue")
-    elif node in node_groups[1]:
-        color_map.append("orange")
-    elif node in node_groups[2]:
-        color_map.append("red")
-    elif node in node_groups[3]:
-        color_map.append("green")
-    else:
-        color_map.append("black")
 
-# draw the graph with the above colors
-nx.draw(H, node_color=color_map, with_labels=True)
+print_metrics_community('Girvan Newman', H, all_com)
+
+# make the color_map
+colors = ['blue', 'orange', 'red', 'green', 'black']
+
+# Color nodes based on the communities
+c = [None] * len(H)
+for idx, com_set in enumerate(all_com):
+    for node in com_set:
+        c[node] = colors[idx % len(colors)]
+
+nx.draw(H, with_labels=True, node_color=c)
 plt.savefig("Graph_Girvan_Newman.png")
 plt.show()
+
+# execution time
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"execution time is: {execution_time} seconds")

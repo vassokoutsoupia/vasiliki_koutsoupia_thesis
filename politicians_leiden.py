@@ -7,8 +7,7 @@ import time
 # measure the execution time
 start_time = time.time()
 
-
-# folder = '.'
+print('Leiden')
 
 # open and real the original graph G
 G = nx.read_edgelist(
