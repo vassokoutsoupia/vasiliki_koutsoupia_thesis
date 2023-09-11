@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 # read the graph and use the label attributes (party, noitype)
 from politicians_evaluation import print_metrics_cluster
 
-G = nx.read_gexf('nois_projected_graph_overlap_attributes.gexf', relabel=True)
+H = nx.read_gexf('nois_projected_graph_overlap_attributes.gexf', relabel=True)
 
 # the resolution parameter influences the number of communities
 def experiment(resolution):
-    partition = community.best_partition(G, resolution=resolution)
+    partition = community.best_partition(H, resolution=resolution)
     size = float(len(set(partition.values())))
     print('> Experiment:')
     print('Resolution parameter: ', resolution)
@@ -27,7 +27,7 @@ partition = experiment(resolution)
 result = sorted(partition.items(), key=lambda item: item[1])
 
 ground_truth_labels_dict = {}
-#louvain_labels_dict = {}
+# louvain_labels_dict = {}
 
 louvain_labels = [c for c in partition.values()]
 
@@ -42,7 +42,7 @@ for com in set(partition.values()):
     list_nodes = [nodes for nodes in partition.keys()
                                 if partition[nodes] == com]
     for name in list_nodes:
-        node = G.nodes[name]
+        node = H.nodes[name]
         ground_truth_labels_dict[name] = parties_id[node['party']] #username : party id
         if 'party' in node.keys():
             print(count-1, ',', name, ',', node['party'])
@@ -57,7 +57,7 @@ for com in set(partition.values()):
     count = count + 1
 # Prepare label lists
 ground_truth_labels = []
-for node in G.nodes:
+for node in H.nodes:
     ground_truth_labels.append(ground_truth_labels_dict[node])
 
 # Ground Truth για το clustering: Το πραγματικό κόμμα κάθε βουλευτή
@@ -68,7 +68,7 @@ print_metrics_cluster('f{resolution}', ground_truth_labels, louvain_labels)
 
 color_palette = ['blue', 'red', 'green', 'orange', 'cyan', 'grey']
 color_map = []
-for node in G:
+for node in H:
     color_map.append(color_palette[ground_truth_labels_dict[node]])
 
 # Canvas size
@@ -77,10 +77,10 @@ plt.figure(1, figsize=(12, 12))
 # width: edge width
 # node_color: List with the color of each graph node
 # labels: Dictionary with the label of each node
-nx.draw(G, labels=ground_truth_labels_dict, with_labels=True, node_color=color_map, width=0.1)
-plt.savefig("Graph_Louvain_2.png")
+nx.draw(H, labels=ground_truth_labels_dict, with_labels=True, node_color=color_map, width=0.1)
+plt.savefig("Graph_Louvain_start.png")
 
-# nx.draw(G, with_labels=True)
+# nx.draw(H, with_labels=True)
 plt.show()
 
 
