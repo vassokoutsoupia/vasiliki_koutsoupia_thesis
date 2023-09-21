@@ -35,22 +35,22 @@ for i in range(num_clusters_to_find):
     comp = nx.algorithms.community.centrality.girvan_newman(H)
     tup = tuple(sorted(c) for c in next(comp))
     all_com.extend(tup)
+print(all_com)
 
-
-print_metrics_community('Girvan Newman', H, all_com)
+# print_metrics_community('Girvan Newman', H, all_com)
 
 # make the color_map
-colors = ['blue', 'orange', 'red', 'green', 'black']
+#colors = ['blue', 'orange', 'red', 'green', 'black']
 
 # Color nodes based on the communities
-c = [None] * len(H)
-for idx, com_set in enumerate(all_com):
-    for node in com_set:
-        c[node] = colors[idx % len(colors)]
+#c = [None] * len(H)
+#for idx, com_set in enumerate(all_com):
+#    for node in com_set:
+#        c[node] = colors[idx % len(colors)]
 
-nx.draw(H, with_labels=True, node_color=c)
-plt.savefig("Graph_Girvan_Newman.png")
-plt.show()
+#nx.draw(H, with_labels=True, node_color=c)
+#plt.savefig("Graph_Girvan_Newman.png")
+#plt.show()
 
 # execution time
 end_time = time.time()

@@ -89,8 +89,6 @@ float_res_list = list(float_res_array)
 sorted_res_list = sorted(float_res_list)
 
 
-
-
 metrics_specific_res = None
 best_res = None
 best_metric = None
