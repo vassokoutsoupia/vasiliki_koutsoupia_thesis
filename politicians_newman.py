@@ -6,6 +6,7 @@ from pathlib import Path
 import time
 import matplotlib.cm as cm
 import networkx.algorithms.community as nx_comm
+from networkx import edge_betweenness_centrality as betweenness
 
 # measure the execution time
 start_time = time.time()
@@ -25,19 +26,30 @@ def print_metrics_community(method_name, H, communities):
     print(f'Coverage ({method_name}: {coverage_method}')
     print(f'Performance ({method_name}: {performance_method}')
 
-
 print('Girvan Newman')
 
 # Girvan Newman community detection
 num_clusters_to_find = 4
 all_com = []
+
+
+def most_central_edge(H):
+    centrality = betweenness(H, weight="weight")
+    return max(centrality, key=centrality.get)
+
 for i in range(num_clusters_to_find):
-    comp = nx.algorithms.community.centrality.girvan_newman(H)
-    tup = tuple(sorted(c) for c in next(comp))
-    all_com.extend(tup)
+    if H.number_of_edges() > 0:
+        comp = nx.algorithms.community.centrality.girvan_newman(H, most_valuable_edge=most_central_edge)
+        tup = tuple(sorted(c) for c in next(comp))
+        all_com.extend(tup)
+    else:
+        break
+
 print(all_com)
 
-# print_metrics_community('Girvan Newman', H, all_com)
+#print_metrics_community('Girvan Newman', H, all_com)
+
+
 
 # make the color_map
 #colors = ['blue', 'orange', 'red', 'green', 'black']
@@ -51,6 +63,7 @@ print(all_com)
 #nx.draw(H, with_labels=True, node_color=c)
 #plt.savefig("Graph_Girvan_Newman.png")
 #plt.show()
+
 
 # execution time
 end_time = time.time()
