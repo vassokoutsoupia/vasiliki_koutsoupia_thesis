@@ -18,13 +18,13 @@ f.close()
 print(noi_set)
 print(parties_id)
 
-output_file = open(output_file_name, "w")         # 'W' = write
+output_file = open(output_file_name, "w")
 
-with open(input_file_name, 'r') as input_file:    # anoigw to file me ta ids kai ta mme ,  'R' = read
+with open(input_file_name, 'r') as input_file:
     for i,line in enumerate(input_file):
-        tokens = line.split(',')                  # [ id, mme_name ]
-        user = tokens[0].strip()                  # o user = to id dld token[0]    MALLON USER=FOLLOWER?
-        noi = tokens[1].strip()                   # kai o noi= to mme_name dld token[1]
+        tokens = line.split(',')
+        user = tokens[0].strip()
+        noi = tokens[1].strip()
 
         if noi in noi_set:
             output_file.write(line)
